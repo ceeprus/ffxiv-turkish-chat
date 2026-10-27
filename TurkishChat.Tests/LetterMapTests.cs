@@ -16,6 +16,8 @@ public class LetterMapTests
     [InlineData('ğ', true, 'g')]
     [InlineData('Ğ', true, 'G')]
     [InlineData('ş', true, 's')]
+    [InlineData('Ş', false, 'S')]
+    [InlineData('Ş', true, 'S')]
     public void Map_ReplacesMissingLetters(char input, bool iota, char expected)
     {
         Assert.Equal(expected, LetterMap.Map(input, iota));
@@ -28,7 +30,6 @@ public class LetterMapTests
     [InlineData('Ö')]
     [InlineData('ü')]
     [InlineData('Ü')]
-    [InlineData('Ş')]
     [InlineData('â')]
     [InlineData('a')]
     [InlineData('ж')]
@@ -54,7 +55,7 @@ public class LetterMapTests
     [InlineData("ı", false, "i")]
     [InlineData("ı", true, "ι")]
     [InlineData("abİ", false, "abI")]
-    [InlineData("Ş ş", false, "Ş s")]
+    [InlineData("Ş ş", false, "S s")]
     public void Rewrite_FixesEachLetter(string input, bool iota, string expected)
     {
         Assert.Equal(expected, LetterMap.Rewrite(input, iota));
@@ -63,7 +64,7 @@ public class LetterMapTests
     [Fact]
     public void Rewrite_ReturnsSameInstanceWhenNothingChanges()
     {
-        var input = "çok güzel Şeker 😀";
+        var input = "çok güzel Çay 😀";
 
         Assert.Same(input, LetterMap.Rewrite(input, false));
     }
@@ -80,6 +81,7 @@ public class LetterMapTests
     [InlineData("ş")]
     [InlineData("ı")]
     [InlineData("İ")]
+    [InlineData("Ş")]
     [InlineData("abc ı def")]
     public void ContainsTarget_FindsMissingLetters(string text)
     {
@@ -89,7 +91,8 @@ public class LetterMapTests
     [Theory]
     [InlineData("")]
     [InlineData("abc")]
-    [InlineData("çöüŞâ")]
+    [InlineData("çöüâ")]
+    [InlineData("Š")]
     [InlineData("жι😀")]
     [InlineData("ĝ")]
     [InlineData("Ġ")]

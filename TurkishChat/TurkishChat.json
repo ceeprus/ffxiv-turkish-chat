@@ -2,7 +2,7 @@
   "Author": "ceeprus",
   "Name": "Turkish Chat Support",
   "Punchline": "Fixes the Turkish letters FFXIV's chat font can't draw, so chat shows g, s and i instead of =.",
-  "Description": "FFXIV's chat font has no glyphs for five Turkish letters, so every player sees = in their place. This plugin swaps them for g, G, s, i and I as you type and again when you send from the chat box, pasted text included, so anyone can read your messages without the plugin. It also fixes messages and speech bubbles from Turkish players who don't have the plugin, on your screen only. In the settings, the dotless i can become Greek ι instead of i.",
+  "Description": "FFXIV's chat font has no glyphs for five Turkish letters, so every player sees = in their place. This plugin swaps them for g, G, s, i and I, and turns Ş into S to match, as you type and again when you send from the chat box, pasted text included, so anyone can read your messages without the plugin. It also fixes messages and speech bubbles from Turkish players who don't have the plugin, on your screen only. In the settings, the dotless i can become Greek ι instead of i.",
   "ApplicableVersion": "any",
   "RepoUrl": "https://github.com/ceeprus/ffxiv-turkish-chat",
   "Tags": [

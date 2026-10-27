@@ -9,6 +9,7 @@ public static class LetterMap
         'ğ' => 'g',
         'Ğ' => 'G',
         'ş' => 's',
+        'Ş' => 'S',
         'ı' => iota ? 'ι' : 'i',
         'İ' => 'I',
         _ => c,
@@ -16,7 +17,7 @@ public static class LetterMap
 
     public static string Rewrite(string s, bool iota)
     {
-        var first = s.AsSpan().IndexOfAny("ğĞşıİ");
+        var first = s.AsSpan().IndexOfAny("ğĞşŞıİ");
         if (first < 0)
             return s;
 
@@ -28,14 +29,14 @@ public static class LetterMap
         });
     }
 
-    // UTF-8 for ğ Ğ ş ı İ is C4 9F, C4 9E, C5 9F, C4 B1, C4 B0; C4 and C5 are never continuation bytes.
+    // UTF-8 for ğ Ğ ş ı İ is C4 9F, C4 9E, C5 9F, C4 B1, C4 B0, and Ş is C5 9E; C4 and C5 are never continuation bytes.
     public static bool ContainsTarget(ReadOnlySpan<byte> utf8)
     {
         for (var i = 0; i < utf8.Length - 1; i++)
         {
             var lead = utf8[i];
             var next = utf8[i + 1];
-            if ((lead == 0xC4 && next is 0x9E or 0x9F or 0xB0 or 0xB1) || (lead == 0xC5 && next == 0x9F))
+            if ((lead == 0xC4 && next is 0x9E or 0x9F or 0xB0 or 0xB1) || (lead == 0xC5 && next is 0x9E or 0x9F))
                 return true;
         }
 
