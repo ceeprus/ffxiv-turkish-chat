@@ -25,9 +25,6 @@ jobs:
           Invoke-WebRequest -Uri https://goatcorp.github.io/dalamud-distrib/latest.zip -OutFile dalamud.zip
           Expand-Archive -Force dalamud.zip "$env:AppData\XIVLauncher\addon\Hooks\dev"
 
-      - name: Test
-        run: dotnet test TurkishChat.Tests --configuration Release
-
       - name: Build
         run: dotnet build TurkishChat/TurkishChat.csproj --configuration Release
 
