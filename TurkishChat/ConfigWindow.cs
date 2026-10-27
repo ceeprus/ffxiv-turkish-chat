@@ -26,13 +26,13 @@ internal sealed class ConfigWindow : Window
         }
 
         var fixReceived = config.FixReceived;
-        if (ImGui.Checkbox("Fix received messages and speech bubbles", ref fixReceived))
+        if (ImGui.Checkbox("Fix messages and speech bubbles from other players", ref fixReceived))
         {
             config.FixReceived = fixReceived;
             Save();
         }
 
-        ImGui.TextUnformatted("Dotless ı becomes");
+        ImGui.TextUnformatted("Dotless i becomes");
         ImGui.SameLine();
         if (ImGui.RadioButton("i", !config.DotlessIAsIota))
         {
@@ -48,7 +48,7 @@ internal sealed class ConfigWindow : Window
         }
 
         ImGui.Spacing();
-        ImGui.TextUnformatted($"ğ to g, Ğ to G, ş to s, ı to {(config.DotlessIAsIota ? "ι" : "i")}, İ to I");
+        ImGui.TextUnformatted($"Swaps: g with breve to g, s with cedilla to s, dotless i to {(config.DotlessIAsIota ? "ι" : "i")}, dotted capital I to I");
     }
 
     private void Save() => pluginInterface.SavePluginConfig(config);
