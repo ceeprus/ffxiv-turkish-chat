@@ -5,11 +5,11 @@ FFXIV's chat font has no ğ, Ğ, ş, ı or İ. Type them in chat and every playe
 | You type | Others see |
 |---|---|
 | ğ Ğ | g G |
-| ş Ş | s S |
+| ş | s |
 | ı | i, or Greek ι if you pick it in the settings |
 | İ | I |
 
-ç, Ç, ö, Ö, ü and Ü are already in the font and stay as they are. Ş is in the font too, but it becomes S so it matches ş.
+ç, Ç, ö, Ö, ü, Ü and Ş are already in the font and stay as they are.
 
 ## What it fixes
 
@@ -29,13 +29,13 @@ To open the settings, go to Installed Plugins in `/xlplugins` and click Settings
 
 ## Türkçe
 
-Oyunun yazı tipinde ğ, Ğ, ş, ı ve İ yok. Sohbete yazınca herkes bu harflerin yerinde `=` görüyor. Bu Dalamud eklentisi eksik beş harfi yazı tipinde olan harflerle değiştirir: ğ yerine g, Ğ yerine G, ş ve Ş yerine s ve S, ı yerine i (ayarlardan Yunan alfabesindeki ι (iota) harfi de seçilebilir), İ yerine I. Böylece eklentisi olmayan oyuncular da senin mesajlarını okuyabilir.
+Oyunun yazı tipinde ğ, Ğ, ş, ı ve İ yok. Sohbete yazınca herkes bu harflerin yerinde `=` görüyor. Bu Dalamud eklentisi eksik beş harfi yazı tipinde olan harflerle değiştirir: ğ yerine g, Ğ yerine G, ş yerine s, ı yerine i (ayarlardan Yunan alfabesindeki ι (iota) harfi de seçilebilir), İ yerine I. Böylece eklentisi olmayan oyuncular da senin mesajlarını okuyabilir.
 
 - Oyundaki metin kutularına yazdığın harfler, sen yazarken değişir.
 - Sohbet kutusundan gönderdiğin her şeyi eklenti, mesaj gitmeden hemen önce düzeltir; yapıştırdığın metin de buna dahil. Yapıştırdığın metin, sen göndermeden önce kutuda `=` olarak görünür.
 - Eklentisi olmayan Türk oyuncuların mesajları ve konuşma balonları senin ekranında `=` yerine harflerle görünür. Bu kısım sadece senin ekranını değiştirir. Bu seçim burada da geçerlidir.
 
-ç, Ç, ö, Ö, ü ve Ü zaten yazı tipinde var, olduğu gibi kalırlar. Ş de yazı tipinde var ama ş ile uyumlu olsun diye S olur. Party Finder açıklaması gibi başka kutulara yapıştırdığın metni eklenti düzeltmez.
+ç, Ç, ö, Ö, ü, Ü ve Ş zaten yazı tipinde var, olduğu gibi kalırlar. Party Finder açıklaması gibi başka kutulara yapıştırdığın metni eklenti düzeltmez.
 
 ### Kurulum
 
