@@ -26,12 +26,13 @@ internal static class SeStringRewrite
         return changed;
     }
 
+    // Game string setters read until a zero byte and their span overloads add none.
     public static byte[]? Rewrite(ReadOnlySpan<byte> encoded, bool iota)
     {
         if (!LetterMap.ContainsTarget(encoded))
             return null;
 
         var text = SeString.Parse(encoded);
-        return RewritePayloads(text, iota) ? text.Encode() : null;
+        return RewritePayloads(text, iota) ? text.EncodeWithNullTerminator() : null;
     }
 }
