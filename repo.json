@@ -7,6 +7,7 @@
     "Punchline": "Support for Turkish characters in chat.",
     "Description": "Support for Turkish characters in chat. The game font can't show five Turkish letters and draws them as =, so this plugin turns them into plain g, G, s, i and I as you type and send. It also fixes messages and speech bubbles from other Turkish players on your screen.",
     "RepoUrl": "https://github.com/ceeprus/ffxiv-turkish-chat",
+    "IconUrl": "https://raw.githubusercontent.com/ceeprus/ffxiv-turkish-chat/main/TurkishChat/images/icon.png",
     "ApplicableVersion": "any",
     "DalamudApiLevel": 15,
     "Tags": [
