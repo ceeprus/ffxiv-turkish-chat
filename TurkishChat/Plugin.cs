@@ -18,6 +18,7 @@ public sealed class Plugin : IDalamudPlugin
     {
         var config = pluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
 
+        Start(log, "typing fix", () => new TypingFix(interop, pluginInterface.UiBuilder, config, log));
         Start(log, "received fix", () => new ReceivedFix(chatGui, config, log));
     }
 
