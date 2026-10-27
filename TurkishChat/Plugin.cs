@@ -34,6 +34,7 @@ public sealed class Plugin : IDalamudPlugin
         windowSystem.AddWindow(configWindow);
         pluginInterface.UiBuilder.Draw += windowSystem.Draw;
         pluginInterface.UiBuilder.OpenConfigUi += configWindow.Toggle;
+        pluginInterface.UiBuilder.OpenMainUi += configWindow.Toggle;
     }
 
     // Each part starts on its own so one failed hook leaves the rest working.
@@ -51,6 +52,7 @@ public sealed class Plugin : IDalamudPlugin
 
     public void Dispose()
     {
+        pluginInterface.UiBuilder.OpenMainUi -= configWindow.Toggle;
         pluginInterface.UiBuilder.OpenConfigUi -= configWindow.Toggle;
         pluginInterface.UiBuilder.Draw -= windowSystem.Draw;
         windowSystem.RemoveAllWindows();
