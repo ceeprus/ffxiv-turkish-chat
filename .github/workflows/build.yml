@@ -1,0 +1,45 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Download Dalamud
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri https://goatcorp.github.io/dalamud-distrib/latest.zip -OutFile dalamud.zip
+          Expand-Archive -Force dalamud.zip "$env:AppData\XIVLauncher\addon\Hooks\dev"
+
+      - name: Test
+        run: dotnet test TurkishChat.Tests --configuration Release
+
+      - name: Build
+        run: dotnet build TurkishChat/TurkishChat.csproj --configuration Release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TurkishChat
+          path: TurkishChat/bin/Release/TurkishChat/latest.zip
+          if-no-files-found: error
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${{ github.ref_name }}" TurkishChat/bin/Release/TurkishChat/latest.zip --title "${{ github.ref_name }}" --generate-notes
