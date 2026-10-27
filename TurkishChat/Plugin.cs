@@ -9,6 +9,7 @@ namespace TurkishChat;
 public sealed class Plugin : IDalamudPlugin
 {
     private readonly IDalamudPluginInterface pluginInterface;
+    private readonly IPluginLog log;
     private readonly List<IDisposable> parts = [];
     private readonly WindowSystem windowSystem = new("TurkishChat");
     private readonly ConfigWindow configWindow;
@@ -21,6 +22,7 @@ public sealed class Plugin : IDalamudPlugin
         IPluginLog log)
     {
         this.pluginInterface = pluginInterface;
+        this.log = log;
         var config = pluginInterface.GetPluginConfig() as Configuration ?? new Configuration();
 
         Start(log, "typing fix", () => new TypingFix(interop, pluginInterface.UiBuilder, config, log));
@@ -54,6 +56,15 @@ public sealed class Plugin : IDalamudPlugin
         windowSystem.RemoveAllWindows();
 
         for (var i = parts.Count - 1; i >= 0; i--)
-            parts[i].Dispose();
+        {
+            try
+            {
+                parts[i].Dispose();
+            }
+            catch (Exception e)
+            {
+                log.Error(e, $"Could not stop the part at index {i}");
+            }
+        }
     }
 }

@@ -16,8 +16,12 @@ internal sealed unsafe class SendFix : IDisposable
     {
         this.config = config;
         this.log = log;
-        hook = interop.HookFromAddress<UIModule.Delegates.ProcessChatBoxEntry>(
-            (nint)UIModule.MemberFunctionPointers.ProcessChatBoxEntry, Detour);
+
+        var address = (nint)UIModule.MemberFunctionPointers.ProcessChatBoxEntry;
+        if (address == 0)
+            throw new InvalidOperationException("ProcessChatBoxEntry was not found");
+
+        hook = interop.HookFromAddress<UIModule.Delegates.ProcessChatBoxEntry>(address, Detour);
         hook.Enable();
     }
 

@@ -13,6 +13,7 @@ internal sealed unsafe class TypingFix : IDisposable
     private const uint WmChar = 0x0102;
 
     private readonly Hook<DispatchMessageWDelegate> hook;
+    private readonly DispatchMessageWDelegate original;
     private readonly IUiBuilder uiBuilder;
     private readonly Configuration config;
     private readonly IPluginLog log;
@@ -26,14 +27,19 @@ internal sealed unsafe class TypingFix : IDisposable
 
         // Dalamud hooks the same import; the two hooks chain.
         hook = interop.HookFromImport<DispatchMessageWDelegate>(null, "user32.dll", "DispatchMessageW", 0, Detour);
+        original = hook.Original;
         hook.Enable();
         uiBuilder.Draw += CacheImGuiState;
+        uiBuilder.HideUi += ClearImGuiState;
     }
 
     private delegate nint DispatchMessageWDelegate(Msg* msg);
 
     // Read once per frame so the detour never calls ImGui.
     private void CacheImGuiState() => imGuiWantsText = ImGui.GetIO().WantTextInput;
+
+    // Draw does not run while plugin UI is hidden, so the cached flag would go stale.
+    private void ClearImGuiState() => imGuiWantsText = false;
 
     private nint Detour(Msg* msg)
     {
@@ -47,7 +53,7 @@ internal sealed unsafe class TypingFix : IDisposable
             log.Error(e, "Could not rewrite a typed character");
         }
 
-        return hook.Original(msg);
+        return original(msg);
     }
 
     // Dalamud's pop-out ImGui windows are separate HWNDs and must keep the real letters.
@@ -59,6 +65,7 @@ internal sealed unsafe class TypingFix : IDisposable
 
     public void Dispose()
     {
+        uiBuilder.HideUi -= ClearImGuiState;
         uiBuilder.Draw -= CacheImGuiState;
         hook.Dispose();
     }

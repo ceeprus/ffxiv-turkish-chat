@@ -13,6 +13,7 @@ internal sealed unsafe class BubbleFix : IDisposable
     private readonly IAddonLifecycle addonLifecycle;
     private readonly Configuration config;
     private readonly IPluginLog log;
+    private bool loggedFailure;
 
     public BubbleFix(IAddonLifecycle addonLifecycle, Configuration config, IPluginLog log)
     {
@@ -27,15 +28,15 @@ internal sealed unsafe class BubbleFix : IDisposable
         if (!config.FixReceived)
             return;
 
-        try
-        {
-            var addon = args.GetAddonPointer<AddonMiniTalk>();
-            if (addon == null)
-                return;
+        var addon = args.GetAddonPointer<AddonMiniTalk>();
+        if (addon == null)
+            return;
 
-            foreach (var bubble in addon->TalkBubbles)
+        for (var i = 0; i < addon->TalkBubbles.Length; i++)
+        {
+            try
             {
-                var node = bubble.BubbleTextNode;
+                var node = addon->TalkBubbles[i].BubbleTextNode;
                 if (node == null)
                     continue;
 
@@ -44,12 +45,16 @@ internal sealed unsafe class BubbleFix : IDisposable
                     continue;
 
                 node->SetText((ReadOnlySpan<byte>)rewritten);
-                log.Debug("Rewrote a speech bubble");
+                log.Debug($"Rewrote speech bubble slot {i}");
             }
-        }
-        catch (Exception e)
-        {
-            log.Error(e, "Could not rewrite a speech bubble");
+            catch (Exception e)
+            {
+                if (!loggedFailure)
+                {
+                    loggedFailure = true;
+                    log.Error(e, $"Could not rewrite speech bubble slot {i}");
+                }
+            }
         }
     }
 

@@ -25,6 +25,9 @@ internal sealed class ReceivedFix : IDisposable
 
         try
         {
+            if (!message.MessageModified && !LetterMap.ContainsTarget(message.OriginalMessage.Data.Span))
+                return;
+
             var text = message.Message;
             if (SeStringRewrite.RewritePayloads(text, config.DotlessIAsIota))
                 message.Message = text;
