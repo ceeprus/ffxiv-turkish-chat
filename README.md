@@ -1,3 +1,5 @@
+<img src="TurkishChat/images/icon.png" alt="Turkish Chat Support icon" width="128" align="right">
+
 # Turkish Chat Support
 
 ## Installation (custom repository)
