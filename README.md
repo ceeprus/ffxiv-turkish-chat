@@ -29,13 +29,13 @@ The settings open from the cog next to the plugin in the installer.
 
 ## Türkçe
 
-Oyunun yazı tipinde ğ, Ğ, ş, ı ve İ yok. Sohbete yazınca herkes bu harflerin yerinde `=` görüyor. Bu Dalamud eklentisi bu beş harfi yazı tipinde olan harflerle değiştirir: ğ yerine g, Ğ yerine G, ş yerine s, ı yerine i (ayarlardan Yunanca ι da seçilebilir), İ yerine I. Böylece mesajların, eklentisi olmayan oyunculara da okunur gelir.
+Oyunun yazı tipinde ğ, Ğ, ş, ı ve İ yok. Sohbete yazınca herkes bu harflerin yerinde `=` görüyor. Bu Dalamud eklentisi eksik beş harfi yazı tipinde olan harflerle değiştirir: ğ yerine g, Ğ yerine G, ş yerine s, ı yerine i (ayarlardan Yunan harfi ι da seçilebilir), İ yerine I. Böylece mesajların eklentisi olmayan oyunculara da okunaklı ulaşır.
 
 - Oyundaki metin kutularına yazdığın harfler, sen yazarken değişir.
 - Sohbet kutusundan gönderdiğin her şey, yapıştırdığın metin de dahil, gönderilmeden hemen önce düzeltilir.
 - Eklentisi olmayan Türk oyuncuların mesajları ve konuşma balonları senin ekranında `=` yerine harflerle görünür. Bu kısım sadece senin ekranını değiştirir.
 
-ç, ö, ü ve Ş zaten yazı tipinde var, onlara dokunulmaz. Parti bulucu açıklaması gibi başka kutulara yapıştırılan metin düzeltilmez.
+ç, ö, ü ve Ş zaten yazı tipinde var, onlara dokunulmaz. Party Finder açıklaması gibi başka kutulara yapıştırılan metin düzeltilmez.
 
 ### Kurulum
 
