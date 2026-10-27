@@ -58,8 +58,6 @@ internal sealed class ConfigWindow : Window
             SwapRow("capital I with a dot", "I");
             ImGui.EndTable();
         }
-
-        ImGui.TextUnformatted("Capital Ş, ç, ö and ü stay as they are.");
     }
 
     private static void SwapRow(string letter, string becomes)
