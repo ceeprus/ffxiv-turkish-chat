@@ -14,6 +14,8 @@ public class LetterMapTests
     [InlineData('İ', false, 'I')]
     [InlineData('İ', true, 'I')]
     [InlineData('ğ', true, 'g')]
+    [InlineData('Ğ', true, 'G')]
+    [InlineData('ş', true, 's')]
     public void Map_ReplacesMissingLetters(char input, bool iota, char expected)
     {
         Assert.Equal(expected, LetterMap.Map(input, iota));
@@ -43,6 +45,19 @@ public class LetterMapTests
 
         Assert.Equal("Agaç dalinda kusu gördüm, Istanbul'a gidiyorum", LetterMap.Rewrite(input, false));
         Assert.Equal("Agaç dalιnda kusu gördüm, Istanbul'a gidiyorum", LetterMap.Rewrite(input, true));
+    }
+
+    [Theory]
+    [InlineData("ğ", false, "g")]
+    [InlineData("Ğ", false, "G")]
+    [InlineData("xş", false, "xs")]
+    [InlineData("ı", false, "i")]
+    [InlineData("ı", true, "ι")]
+    [InlineData("abİ", false, "abI")]
+    [InlineData("Ş ş", false, "Ş s")]
+    public void Rewrite_FixesEachLetter(string input, bool iota, string expected)
+    {
+        Assert.Equal(expected, LetterMap.Rewrite(input, iota));
     }
 
     [Fact]
@@ -76,6 +91,11 @@ public class LetterMapTests
     [InlineData("abc")]
     [InlineData("çöüŞâ")]
     [InlineData("жι😀")]
+    [InlineData("ĝ")]
+    [InlineData("Ġ")]
+    [InlineData("į")]
+    [InlineData("Ĳ")]
+    [InlineData("ŝ")]
     public void ContainsTarget_IgnoresOtherText(string text)
     {
         Assert.False(LetterMap.ContainsTarget(Encoding.UTF8.GetBytes(text)));
