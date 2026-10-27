@@ -21,6 +21,7 @@ public sealed class Plugin : IDalamudPlugin
         Start(log, "typing fix", () => new TypingFix(interop, pluginInterface.UiBuilder, config, log));
         Start(log, "send fix", () => new SendFix(interop, config, log));
         Start(log, "received fix", () => new ReceivedFix(chatGui, config, log));
+        Start(log, "bubble fix", () => new BubbleFix(addonLifecycle, config, log));
     }
 
     // Each part starts on its own so one failed hook leaves the rest working.
