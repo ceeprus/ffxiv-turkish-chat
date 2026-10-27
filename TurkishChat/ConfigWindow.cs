@@ -47,8 +47,28 @@ internal sealed class ConfigWindow : Window
             Save();
         }
 
+        // The game font cannot draw the letters being replaced, so the left column names them.
         ImGui.Spacing();
-        ImGui.TextUnformatted($"Swaps: g with breve to g, s with cedilla to s, dotless i to {(config.DotlessIAsIota ? "ι" : "i")}, dotted capital I to I");
+        ImGui.TextUnformatted("Letters the game font can't show become plain ones:");
+        if (ImGui.BeginTable("##swaps", 2, ImGuiTableFlags.SizingFixedFit))
+        {
+            SwapRow("soft g (g with a breve)", "g, capital G");
+            SwapRow("s with a cedilla", "s");
+            SwapRow("dotless i", config.DotlessIAsIota ? "ι" : "i");
+            SwapRow("capital I with a dot", "I");
+            ImGui.EndTable();
+        }
+
+        ImGui.TextUnformatted("Capital Ş, ç, ö and ü stay as they are.");
+    }
+
+    private static void SwapRow(string letter, string becomes)
+    {
+        ImGui.TableNextRow();
+        ImGui.TableNextColumn();
+        ImGui.TextUnformatted(letter);
+        ImGui.TableNextColumn();
+        ImGui.TextUnformatted(becomes);
     }
 
     private void Save() => pluginInterface.SavePluginConfig(config);
